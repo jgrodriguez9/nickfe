@@ -7,6 +7,7 @@ import DefaultLayout from "../components/Layouts/DefaultLayout";
 import Login from "../pages/Security/Login";
 import Home from "../pages/Shop/Home";
 import Technique from "../pages/Shop/Technique";
+import Product from "../pages/Shop/Product";
 
 const routes: RoutesType[] = ([
   {
@@ -20,6 +21,12 @@ const routes: RoutesType[] = ([
     order: 1,
     isMain: false,
     Component: Technique
+  },
+  {
+    path: '/step-2',
+    order: 1,
+    isMain: false,
+    Component: Product
   },
 ])
 

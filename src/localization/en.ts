@@ -4,7 +4,12 @@ const en = {
       selectYouLanguage: 'Select your language'
     },
     technique: {
-      title: 'Technique'
+      title: 'Technique',
+      straightToGarments: 'Straight to the garments',
+      embroidery: 'Embroidery'
+    },
+    product: {
+      title: 'Select your product',
     }
   }  
 }

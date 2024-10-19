@@ -5,9 +5,10 @@ type CardWithFooterProps = {
   icon: React.ReactNode;
   text: string;
   price: number;
+  action: () => void;
 };
 
-const CardWithFooter = ({ icon, text, price }: CardWithFooterProps) => {
+const CardWithFooter = ({ icon, text, price, action }: CardWithFooterProps) => {
   const style = {
     backgroundImage: "url(/card/card-bg-footer.avif)",
     backgroundSize: "cover",
@@ -15,7 +16,7 @@ const CardWithFooter = ({ icon, text, price }: CardWithFooterProps) => {
   };
 
   return (
-    <div className="mb-60">
+    <div className="mb-60 cursor-pointer" onClick={action}>
       <Card extraClasses={"!p-0 border border-gray-700 rounded-sm"}>
         <div className="flex flex-col">
           <div className="flex justify-center items-center p-2">{icon}</div>

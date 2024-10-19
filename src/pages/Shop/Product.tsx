@@ -1,12 +1,11 @@
-import { PiPrinter } from "react-icons/pi";
+import { FaTshirt } from "react-icons/fa";
 import CardWithFooter from "../../components/Common/CardWithFooter";
 import useAppTranslation from "../../hook/useAppTranslation";
-import { GiSewingMachine } from "react-icons/gi";
 import SchemaDefault2 from "../../components/Layouts/SchemaDefault2";
 import { useNavigate } from "react-router-dom";
 
-const Technique = () => {
-  const { t } = useAppTranslation({ keyPrefix: "pages.technique" });
+const Product = () => {
+  const { t } = useAppTranslation({ keyPrefix: "pages.product" });
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -20,16 +19,14 @@ const Technique = () => {
       </h1>
       <div className="flex flex-col md:flex-row gap-8">
         <CardWithFooter
-          icon={<PiPrinter className="h-60 w-60 m-5 mx-10 text-gray-700" />}
-          text={t("straightToGarments")}
+          icon={<FaTshirt className="h-60 w-60 m-5 mx-10 text-gray-700" />}
+          text="Camiseta"
           price={18}
           action={handleNext}
         />
         <CardWithFooter
-          icon={
-            <GiSewingMachine className="h-60 w-60 m-5 mx-10 text-gray-700" />
-          }
-          text={t("embroidery")}
+          icon={<FaTshirt className="h-60 w-60 m-5 mx-10 text-gray-700" />}
+          text="Sudadera"
           price={26}
           action={handleNext}
         />
@@ -39,4 +36,4 @@ const Technique = () => {
   );
 };
 
-export default Technique;
+export default Product;
