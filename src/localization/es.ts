@@ -10,6 +10,12 @@ const es = {
     },
     product: {
       title: 'Seleccione su producto',
+    },
+    character: {
+      title: 'Selecciona tu personaje favorito',
+    },
+    design: {
+      title: 'Selecciona tu dieño',
     }
   }
 }

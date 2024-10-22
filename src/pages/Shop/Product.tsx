@@ -9,7 +9,7 @@ const Product = () => {
   const navigate = useNavigate();
 
   const handleNext = () => {
-    navigate("/step-2");
+    navigate("/step-3");
   };
 
   return (

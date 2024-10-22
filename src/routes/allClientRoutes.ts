@@ -8,25 +8,40 @@ import Login from "../pages/Security/Login";
 import Home from "../pages/Shop/Home";
 import Technique from "../pages/Shop/Technique";
 import Product from "../pages/Shop/Product";
+import Characters from "../pages/Shop/Characters";
+import Design from "../pages/Shop/Design";
+import Personalize from "../pages/Shop/Personalize";
 
 const routes: RoutesType[] = ([
   {
     path: '/',
-    order: 1,
     isMain: false,
     Component: Home
   },
   {
     path: '/step-1',
-    order: 1,
     isMain: false,
     Component: Technique
   },
   {
     path: '/step-2',
-    order: 1,
     isMain: false,
     Component: Product
+  },
+  {
+    path: '/step-3',
+    isMain: false,
+    Component: Characters
+  },
+  {
+    path: '/step-4',
+    isMain: false,
+    Component: Design
+  },
+  {
+    path: '/personalize',
+    isMain: false,
+    Component: Personalize
   },
 ])
 

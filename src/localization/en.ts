@@ -10,6 +10,12 @@ const en = {
     },
     product: {
       title: 'Select your product',
+    },
+    character: {
+      title: 'Select your favorite character',
+    },
+    design: {
+      title: 'Select your design',
     }
   }  
 }
