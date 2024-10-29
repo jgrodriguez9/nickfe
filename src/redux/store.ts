@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { messageReducer } from './messageSlice'
+import { cartReducer } from './cartSlice'
+import { orderReducer } from './orderSlice'
 
 export const store = configureStore({
   reducer: {
     message: messageReducer,
+    cart: cartReducer,
+    order: orderReducer
   },
 })
 

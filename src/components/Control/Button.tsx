@@ -4,7 +4,7 @@ import Spinner from "../Loader/Spinner";
 type ButtonProps = {
   label?: string;
   type?: "button" | "submit";
-  variant?: string;
+  variant?: "primary" | "light" | "link" | "danger" | "none";
   startIcon?: React.ReactNode | null;
   fullWidth?: boolean;
   importantClass?: string;
