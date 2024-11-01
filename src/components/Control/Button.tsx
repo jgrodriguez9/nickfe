@@ -4,7 +4,7 @@ import Spinner from "../Loader/Spinner";
 type ButtonProps = {
   label?: string;
   type?: "button" | "submit";
-  variant?: "primary" | "light" | "link" | "danger" | "none";
+  variant?: "primary" | "light" | "link" | "danger" | "none" | "dark";
   startIcon?: React.ReactNode | null;
   fullWidth?: boolean;
   importantClass?: string;
@@ -34,6 +34,8 @@ const Button = ({
         return "bg-white text-primary text-[12px]";
       case "danger":
         return "bg-red-500 text-white text-[16px] font-[600]";
+      case "dark":
+        return "bg-black py-[5px] px-[11px] border text-base font-semibold text-white";
       case "none":
         return "!bg-transparent !p-0 !w-auto";
       default:

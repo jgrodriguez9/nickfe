@@ -111,6 +111,7 @@ const CartShopping = () => {
                         label="Checkout"
                         fullWidth
                         importantClass="!bg-[#d6621b]"
+                        onClick={() => navigate("/checkout")}
                       />
                     </div>
                   </div>

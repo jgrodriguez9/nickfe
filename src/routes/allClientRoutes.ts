@@ -11,6 +11,9 @@ import Product from "../pages/Shop/Product";
 import Characters from "../pages/Shop/Characters";
 import Design from "../pages/Shop/Design";
 import Personalize from "../pages/Shop/Personalize";
+import Checkout from "../pages/Shop/Checkout";
+import Dashboard from "../pages/Admin/Dashboard";
+import AdminLayout from "../components/Admin/Layouts/AdminLayout";
 
 const routes: RoutesType[] = ([
   {
@@ -43,9 +46,23 @@ const routes: RoutesType[] = ([
     isMain: false,
     Component: Personalize
   },
+  {
+    path: '/checkout',
+    isMain: false,
+    Component: Checkout
+  },
 ])
 
-const routesValid = routes
+
+const routesAdmin: RoutesType[] = ([
+  {
+    path: '/dashboard',
+    isMain: false,
+    Component: Dashboard
+  },
+])
+
+const routesValid = [...routes, ...routesAdmin]
   .map(({ path }) =>
     path !== undefined
       ? `${!path.startsWith('/') ? '/' : ''}${path}`
@@ -92,6 +109,30 @@ export const routesApp: RouteObject[] = [
     Component: DefaultLayout,
     children: routes.map<RouteObject>(({ path, Component, children }) => {
       if (path === '/') {
+        return {
+          index: true,
+          Component,
+          loader: protectedLoader
+        }
+      }
+  
+      return {
+        path,
+        Component,
+        children: children?.map((it) => ({ ...it, loader: protectedLoader })),
+        loader: (children ?? []).every(
+          ({ index }) => index === undefined || !index
+        )
+          ? protectedLoader
+          : undefined
+      }
+    })
+  },   
+  {
+    path: '/dashboard',
+    Component: AdminLayout,
+    children: routesAdmin.map<RouteObject>(({ path, Component, children }) => {
+      if (path === '/dashboard') {
         return {
           index: true,
           Component,
