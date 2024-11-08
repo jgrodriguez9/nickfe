@@ -8,5 +8,6 @@ type RoutesType = Pick<RouteObject, 'path' | 'Component' | 'children'> & {
 }
 
 export {
-  RoutesType
+  RoutesType,
+  Route
 }

@@ -25,7 +25,13 @@ export default tseslint.config(
       ],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      indent: ["error", 2, { SwitchCase: 1 }],
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      indent: [
+        "error",
+        2,
+        { SwitchCase: 1 },
+        { offsetTernaryExpressions: false },
+      ],
     },
   }
 );

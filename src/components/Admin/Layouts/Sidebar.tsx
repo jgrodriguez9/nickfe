@@ -1,4 +1,5 @@
 import { FaUser } from "react-icons/fa";
+import { FaShirt } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -12,20 +13,25 @@ const Sidebar = () => {
           className="flex flex-row gap-4 items-center hover:text-gray-900 text-gray-600 text-base font-[500]"
         >
           <FaUser />
+          Orders
+        </Link>
+
+        <h1 className="text-gray-900 font-[500] text-base pt-7 pb-1">
+          Administración
+        </h1>
+        <hr className="border-t" />
+        <Link
+          to={`/admin/users`}
+          className="flex flex-row gap-4 items-center hover:text-gray-900 text-gray-600 text-base font-[500]"
+        >
+          <FaUser />
           Users
         </Link>
         <Link
-          to={"/users"}
+          to={"/admin/products"}
           className="flex flex-row gap-4 items-center hover:text-gray-900 text-gray-600 text-base font-[500]"
         >
-          <FaUser />
-          Orders
-        </Link>
-        <Link
-          to={"/users"}
-          className="flex flex-row gap-4 items-center hover:text-gray-900 text-gray-600 text-base font-[500]"
-        >
-          <FaUser />
+          <FaShirt />
           Products
         </Link>
         <Link
@@ -42,24 +48,6 @@ const Sidebar = () => {
           <FaUser />
           Additional
         </Link>
-        {/* <a
-          href="#"
-          className="block rounded-lg px-4 py-2 text-gray-200 hover:bg-blue-700"
-        >
-          Home
-        </a>
-        <a
-          href="#"
-          className="block rounded-lg px-4 py-2 text-gray-200 hover:bg-blue-700"
-        >
-          Analytics
-        </a>
-        <a
-          href="#"
-          className="block rounded-lg px-4 py-2 text-gray-200 hover:bg-blue-700"
-        >
-          Settings
-        </a> */}
       </nav>
       {/* <div className="border-t border-blue-700 p-4">
         <a

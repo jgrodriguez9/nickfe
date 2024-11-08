@@ -7,9 +7,11 @@ import { clearMessage } from "../../../redux/messageSlice";
 import scrollUp from "../../../utils/scrollUp";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import useBrand from "../../../hook/useBrand";
 
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
+  const { theme } = useBrand();
   const { type, message } = useAppSelector((state) => state.message);
   const { pathname } = useLocation();
 
@@ -56,7 +58,7 @@ const AdminLayout = () => {
 
   return (
     <>
-      <div className={`flex h-screen`}>
+      <div className={`flex h-screen ${theme}`}>
         <Helmet>
           <title>Dashboard</title>
         </Helmet>

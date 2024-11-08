@@ -4,7 +4,14 @@ import Spinner from "../Loader/Spinner";
 type ButtonProps = {
   label?: string;
   type?: "button" | "submit";
-  variant?: "primary" | "light" | "link" | "danger" | "none" | "dark";
+  variant?:
+    | "primary"
+    | "light"
+    | "link"
+    | "danger"
+    | "none"
+    | "dark"
+    | "dark-light";
   startIcon?: React.ReactNode | null;
   fullWidth?: boolean;
   importantClass?: string;
@@ -29,13 +36,15 @@ const Button = ({
       case "primary":
         return "bg-site-primary text-white text-[16px] font-[600]";
       case "light":
-        return "bg-white border border-[#E8E9EA] text-[#282828] text-[12px] font-[500]";
+        return "bg-white border  text-black py-[5px] px-[11px] text-base font-semibold hover:bg-gray-100 rounded-lg";
       case "link":
         return "bg-white text-primary text-[12px]";
       case "danger":
-        return "bg-red-500 text-white text-[16px] font-[600]";
+        return "bg-red-500 text-white text-base font-semibold font-[600] hover:bg-red-400";
       case "dark":
-        return "bg-black py-[5px] px-[11px] border text-base font-semibold text-white";
+        return "bg-black py-[5px] px-[11px] border text-base font-semibold text-white hover:bg-gray-900 rounded-lg";
+      case "dark-light":
+        return "bg-gray-400 py-[5px] px-[11px] border text-base font-semibold text-white hover:bg-gray-300 rounded-lg";
       case "none":
         return "!bg-transparent !p-0 !w-auto";
       default:

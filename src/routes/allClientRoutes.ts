@@ -14,6 +14,8 @@ import Personalize from "../pages/Shop/Personalize";
 import Checkout from "../pages/Shop/Checkout";
 import Dashboard from "../pages/Admin/Dashboard";
 import AdminLayout from "../components/Admin/Layouts/AdminLayout";
+import Users from "../pages/Admin/Users";
+import Products from "../pages/Admin/Products";
 
 const routes: RoutesType[] = ([
   {
@@ -56,9 +58,19 @@ const routes: RoutesType[] = ([
 
 const routesAdmin: RoutesType[] = ([
   {
-    path: '/dashboard',
+    path: '/admin',
     isMain: false,
-    Component: Dashboard
+    Component: Dashboard,
+  },
+  {
+    path: 'users',
+    isMain: false,
+    Component: Users,
+  },
+  {
+    path: 'products',
+    isMain: false,
+    Component: Products,
   },
 ])
 
@@ -129,10 +141,10 @@ export const routesApp: RouteObject[] = [
     })
   },   
   {
-    path: '/dashboard',
+    path: '/admin',
     Component: AdminLayout,
     children: routesAdmin.map<RouteObject>(({ path, Component, children }) => {
-      if (path === '/dashboard') {
+      if (path === '/admin') {
         return {
           index: true,
           Component,

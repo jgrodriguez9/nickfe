@@ -27,7 +27,7 @@ const LoginForm = () => {
       if (role === "User") {
         navigate("/");
       } else {
-        navigate("/dashboard");
+        navigate("/admin");
       }
     },
     onError: (error) => {

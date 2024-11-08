@@ -1,25 +1,26 @@
-import { InputHTMLAttributes } from "react";
+import { SELECT_OPTION } from "../../constant/messages";
+import Select from "react-select";
 
-type InputProps = {
-  id: string;
-  name: string;
-  type?: "text" | "number" | "password";
-  label?: string;
-  value: string | number;
-  onChange: (event: InputHTMLAttributes<HTMLInputElement>) => void;
-  error?: string;
-  disabled?: boolean;
-  placeholder?: string;
-  max?: number;
-  min?: number;
-  importantClass?: string;
-  importantClassLabel?: string;
-  importantClassContainer?: string;
-  readOnly?: boolean;
+type ValueProps = {
+  value: string;
+  label: string;
 };
 
-const Input = ({
-  type = "text",
+type SelectSingleProps = {
+  id: string;
+  name: string;
+  label?: string;
+  value: ValueProps | null;
+  onChange: (event: ValueProps | null) => void;
+  error?: string;
+  disabled?: boolean;
+  importantClassLabel?: string;
+  importantClassContainer?: string;
+  options: ValueProps[] | [];
+  clearable?: boolean;
+};
+
+const SelectControl = ({
   label = undefined,
   value,
   onChange,
@@ -27,14 +28,11 @@ const Input = ({
   id,
   name,
   disabled = false,
-  placeholder = "",
-  max = undefined,
-  min = undefined,
-  importantClass = "",
   importantClassLabel = "",
   importantClassContainer = "",
-  readOnly = false,
-}: InputProps) => {
+  options = [],
+  clearable = false,
+}: SelectSingleProps) => {
   return (
     <div className={`mb-2 w-full ${importantClassContainer}`}>
       {Boolean(label) && (
@@ -46,18 +44,21 @@ const Input = ({
         </label>
       )}
       <>
-        <input
+        <Select
           id={id}
           name={name}
-          type={type}
-          className={`w-full p-2 border border-[#E8E9EA] rounded-[5px] h-[42px] ${importantClass}`}
+          classNames={{
+            control: (state) =>
+              state.isFocused
+                ? "!h-[42px] !border !border-[#E8E9EA] !rounded-[5px] !ring-1 !ring-black"
+                : "!h-[42px] !border !border-[#E8E9EA] !rounded-[5px]",
+          }}
           value={value}
           onChange={onChange}
-          disabled={disabled}
-          placeholder={placeholder}
-          max={max}
-          min={min}
-          readOnly={readOnly}
+          options={options}
+          placeholder={SELECT_OPTION}
+          isDisabled={disabled}
+          isClearable={clearable}
         />
         {Boolean(error) && (
           <span className="text-red-500 text-[12px]">{error}</span>
@@ -67,4 +68,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default SelectControl;

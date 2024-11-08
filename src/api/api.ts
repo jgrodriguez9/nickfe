@@ -11,7 +11,7 @@ axiosApi.defaults.headers.post['Content-Type'] = 'application/json';
 axiosApi.interceptors.request.use(async (config) => {
   if (localStorage.getItem(VITE_APP_AUTH)) {
     const data = localStorage.getItem(VITE_APP_AUTH);
-    const token = data ? `${JSON.parse(data).access_token}` : null;
+    const token = data ? `${JSON.parse(data).token}` : null;
     const { headers } = config;
     if (token) {
       headers.Authorization = `Bearer ${token}`;

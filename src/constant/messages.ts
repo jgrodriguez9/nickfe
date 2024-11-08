@@ -26,3 +26,4 @@ export const GREATER_THAN_TODAY =
 export const TOO_OLD = "La edad no puede ser mayor a 120 años";
 export const SCHEDULED_APPOINTMENT = "Se ha agendado su cita correctamente";
 export const UPDATE_SUCCESSFULLY = "Se actualizó correctamente";
+export const DELETED_SUCCESSFULLY = "Se eliminó correctamente";
