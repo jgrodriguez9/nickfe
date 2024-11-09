@@ -1,11 +1,20 @@
+import { createProduct, updateProduct } from "@/api/product";
 import Input from "@/components/Control/Input";
+import InputFormik from "@/components/Control/InputFormik";
 import UploadPreviewImage from "@/components/Control/UploadPreviewImage";
 import { Button } from "@/components/ui/button";
-import { FIELD_REQUIRED } from "@/constant/messages";
+import {
+  FIELD_REQUIRED,
+  SAVE_SUCCESS,
+  UPDATE_SUCCESSFULLY,
+} from "@/constant/messages";
+import useBanner from "@/hook/useBanner";
 import { Product } from "@/types/product";
 import { convertBase64 } from "@/utils/convertBase64";
-import { useFormik } from "formik";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FieldArray, FormikProvider, useFormik } from "formik";
 import { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 import * as Yup from "yup";
 
 type Props = {
@@ -15,6 +24,30 @@ type Props = {
 
 const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
   const [file, setFile] = useState<any>();
+  const banner = useBanner();
+  const queryClient = useQueryClient();
+  const { mutate: createMutation, isPending: isCreating } = useMutation({
+    mutationFn: createProduct,
+    onSuccess: () => {
+      banner.simpleSuccess(SAVE_SUCCESS);
+      queryClient.refetchQueries({ queryKey: ["getProducts"] });
+      toggleModal();
+    },
+    onError: (error) => {
+      banner.simpleError(error);
+    },
+  });
+  const { mutate: updateMutation, isPending: isUpdating } = useMutation({
+    mutationFn: updateProduct,
+    onSuccess: () => {
+      banner.simpleSuccess(UPDATE_SUCCESSFULLY);
+      queryClient.refetchQueries({ queryKey: ["getProducts"] });
+      toggleModal();
+    },
+    onError: (error) => {
+      banner.simpleError(error);
+    },
+  });
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -29,9 +62,26 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
       imageUrl: Yup.string().required(FIELD_REQUIRED),
     }),
     onSubmit: async (values) => {
-      console.log(values);
-      const imageBase64 = await convertBase64(file);
-      console.log(imageBase64);
+      let imageBase64 = undefined;
+      if (file) {
+        imageBase64 = await convertBase64(file);
+      } else {
+        imageBase64 = values.imageUrl;
+      }
+
+      const data = {
+        ...values,
+        imageUrl: imageBase64,
+      };
+      console.log(data);
+      if (values.id) {
+        updateMutation({
+          id: values.id,
+          body: data,
+        });
+      } else {
+        createMutation(data);
+      }
     },
   });
 
@@ -49,7 +99,7 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
       }}
     >
       <div className="flex flex-col gap-2 mt-2">
-        <UploadPreviewImage setFile={setFile} />
+        <UploadPreviewImage urlImg={item?.imageUrl} setFile={setFile} />
         {Boolean(formik.errors?.imageUrl) && (
           <span className="text-red-500 text-[12px] text-center">
             {formik.errors?.imageUrl}
@@ -64,7 +114,102 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
           error={formik.errors?.name}
         />
 
-        <Button variant="default" type="submit" className="!w-fit">
+        <FormikProvider value={formik}>
+          <FieldArray name="tallas">
+            {({ remove, push }) => (
+              <div>
+                <Button
+                  type="button"
+                  variant={"outline"}
+                  onClick={() =>
+                    push({
+                      code: "",
+                      name: "",
+                      quantity: 0,
+                      colors: [],
+                    })
+                  }
+                >
+                  Add sizes
+                </Button>
+                {formik.values.tallas.length > 0 &&
+                  formik.values.tallas.map((_talla, idx) => (
+                    <div className="flex flex-col border p-2 my-1">
+                      <div
+                        className="flex flex-col lg:flex-row gap-2 items-center"
+                        key={`tallas-${idx}`}
+                      >
+                        <InputFormik label="Code" name={`tallas.${idx}.code`} />
+                        <InputFormik label="Name" name={`tallas.${idx}.name`} />
+                        <InputFormik
+                          label="Quantity"
+                          name={`tallas.${idx}.quantity`}
+                        />
+                        <Button
+                          type="button"
+                          variant={"ghost"}
+                          onClick={() => remove(idx)}
+                          className="text-red-500"
+                        >
+                          <FaTrash />
+                        </Button>
+                      </div>
+                      <div>
+                        <FieldArray name={`tallas.${idx}.colors`}>
+                          {({ remove: removeColors, push: pushColor }) => (
+                            <div>
+                              <Button
+                                type="button"
+                                variant={"outline"}
+                                onClick={() =>
+                                  pushColor({ codeHex: "", name: "" })
+                                }
+                                className="justify-start w-fit"
+                              >
+                                Add colors
+                              </Button>
+                              {_talla.colors.map((_color, idxColor: number) => (
+                                <div
+                                  className="flex flex-col lg:flex-row gap-2 items-center"
+                                  key={`color-${idx}`}
+                                >
+                                  <InputFormik
+                                    label="Code HEX"
+                                    name={`tallas.${idx}.colors.${idxColor}.codeHex`}
+                                  />
+                                  <InputFormik
+                                    label="Name"
+                                    name={`tallas.${idx}.colors.${idxColor}.name`}
+                                  />
+
+                                  <Button
+                                    type="button"
+                                    variant={"ghost"}
+                                    onClick={() => removeColors(idxColor)}
+                                    className="text-red-500"
+                                  >
+                                    <FaTrash />
+                                  </Button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </FieldArray>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            )}
+          </FieldArray>
+        </FormikProvider>
+
+        <Button
+          variant="default"
+          type="submit"
+          className="!w-fit"
+          isLoading={isCreating || isUpdating}
+          disabled={isCreating || isUpdating}
+        >
           Save
         </Button>
       </div>

@@ -3,12 +3,17 @@ import useBanner from "../../../hook/useBanner";
 import { Button } from "@/components/ui/button";
 import FormProduct from "@/components/Admin/Product/FormProduct";
 import Dialog from "@/components/Common/Dialog/Dialog";
+import useGetProductsQuery from "@/hook/Queries/useGetProductsQuery";
+import useProductsColumns from "./hooks/useProductsColumns";
+import TableClientSide from "@/components/Tables/TableClientSide";
 
 const Products = () => {
   const [open, setOpen] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const banner = useBanner();
   const [itemSelected, setItemSelected] = useState<any | null>(null);
+
+  const { data, isLoading, isError, refetch } = useGetProductsQuery();
 
   const toggleModal = () => setOpen(!open);
 
@@ -18,8 +23,9 @@ const Products = () => {
     setItemSelected({
       id: original._id,
       name: original.name,
-      email: original.email,
-      role: original.role,
+      imageUrl: original.imageUrl,
+      imageId: original.imageId,
+      tallas: original.tallas,
     });
     toggleModal();
   };
@@ -38,6 +44,8 @@ const Products = () => {
     toggleModal();
   };
 
+  const columnsDef = useProductsColumns({ onDeleteClick, onEditClick });
+
   return (
     <>
       <div className="flex items-end justify-end mb-4">
@@ -45,6 +53,7 @@ const Products = () => {
           Add new
         </Button>
       </div>
+      <TableClientSide columns={columnsDef} data={data?.items ?? []} />
 
       <Dialog
         open={open}
@@ -54,7 +63,7 @@ const Products = () => {
         hideCancelButton={true}
         maxWidth={2}
       >
-        <FormProduct item={null} toggleModal={toggleModal} />
+        <FormProduct item={itemSelected} toggleModal={toggleModal} />
       </Dialog>
     </>
   );

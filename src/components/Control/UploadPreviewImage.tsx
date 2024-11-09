@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 
 type Props = {
+  urlImg?: string;
   setFile: (file: any) => void;
 };
 
-const UploadPreviewImage = ({ setFile }: Props) => {
+const UploadPreviewImage = ({ setFile, urlImg }: Props) => {
   const [fileUpload, setFileUpload] = useState<string | undefined>(undefined);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -37,27 +38,37 @@ const UploadPreviewImage = ({ setFile }: Props) => {
               accept="image/*"
               ref={fileInputRef}
             />
-            {fileUpload && (
+            {fileUpload ? (
               <img
                 src={fileUpload}
                 alt="Selected file"
                 className="max-h-48 rounded-lg mx-auto"
                 onClick={handleImageClick}
               />
+            ) : (
+              urlImg && (
+                <img
+                  src={urlImg}
+                  alt="Selected file"
+                  className="max-h-48 rounded-lg mx-auto"
+                  onClick={handleImageClick}
+                />
+              )
             )}
-            {!fileUpload && (
+
+            {!fileUpload && !urlImg && (
               <label htmlFor="upload" className="cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-8 h-8 text-gray-700 mx-auto mb-4"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
                   />
                 </svg>
