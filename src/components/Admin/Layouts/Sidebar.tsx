@@ -1,5 +1,5 @@
-import { FaUser } from "react-icons/fa";
-import { FaShirt } from "react-icons/fa6";
+import { FaAutoprefixer, FaUser } from "react-icons/fa";
+import { FaMasksTheater, FaPhotoFilm, FaShirt } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -35,11 +35,25 @@ const Sidebar = () => {
           Products
         </Link>
         <Link
-          to={"/users"}
+          to={"/admin/characters"}
           className="flex flex-row gap-4 items-center hover:text-gray-900 text-gray-600 text-base font-[500]"
         >
-          <FaUser />
-          Arts
+          <FaMasksTheater />
+          Characters
+        </Link>
+        <Link
+          to={"/admin/designs"}
+          className="flex flex-row gap-4 items-center hover:text-gray-900 text-gray-600 text-base font-[500]"
+        >
+          <FaPhotoFilm />
+          Designs
+        </Link>
+        <Link
+          to={"/admin/typographies"}
+          className="flex flex-row gap-4 items-center hover:text-gray-900 text-gray-600 text-base font-[500]"
+        >
+          <FaAutoprefixer />
+          Typographies
         </Link>
         <Link
           to={"/users"}

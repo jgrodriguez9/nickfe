@@ -73,7 +73,6 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
         ...values,
         imageUrl: imageBase64,
       };
-      console.log(data);
       if (values.id) {
         updateMutation({
           id: values.id,

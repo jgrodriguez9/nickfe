@@ -16,6 +16,9 @@ import Dashboard from "../pages/Admin/Dashboard";
 import AdminLayout from "../components/Admin/Layouts/AdminLayout";
 import Users from "../pages/Admin/Users";
 import Products from "../pages/Admin/Products";
+import Character from "@/pages/Admin/Character/Character";
+import DesignAdmin from "@/pages/Admin/Design";
+import Typography from "@/pages/Admin/Typography";
 
 const routes: RoutesType[] = ([
   {
@@ -71,6 +74,21 @@ const routesAdmin: RoutesType[] = ([
     path: 'products',
     isMain: false,
     Component: Products,
+  },
+  {
+    path: 'characters',
+    isMain: false,
+    Component: Character,
+  },
+  {
+    path: 'designs',
+    isMain: false,
+    Component: DesignAdmin,
+  },
+  {
+    path: 'typographies',
+    isMain: false,
+    Component: Typography,
   },
 ])
 

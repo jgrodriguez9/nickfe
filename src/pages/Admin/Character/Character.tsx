@@ -1,19 +1,19 @@
 import { useState } from "react";
 import useBanner from "../../../hook/useBanner";
 import { Button } from "@/components/ui/button";
-import FormProduct from "@/components/Admin/Product/FormProduct";
 import Dialog from "@/components/Common/Dialog/Dialog";
-import useGetProductsQuery from "@/hook/Queries/useGetProductsQuery";
-import useProductsColumns from "./hooks/useProductsColumns";
 import TableClientSide from "@/components/Tables/TableClientSide";
+import useGetCharacterQuery from "@/hook/Queries/useGetCharacterQuery";
+import FormCharacter from "@/components/Admin/Character/FormCharacter";
+import useCharacterColumns from "./hooks/useCharacterColumns";
 
-const Products = () => {
+const Character = () => {
   const [open, setOpen] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const banner = useBanner();
   const [itemSelected, setItemSelected] = useState<any | null>(null);
 
-  const { data, isLoading, isError, refetch } = useGetProductsQuery();
+  const { data, isLoading, isError, refetch } = useGetCharacterQuery();
 
   const toggleModal = () => setOpen(!open);
 
@@ -25,7 +25,6 @@ const Products = () => {
       name: original.name,
       imageUrl: original.imageUrl,
       imageId: original.imageId,
-      tallas: original.tallas,
     });
     toggleModal();
   };
@@ -44,7 +43,7 @@ const Products = () => {
     toggleModal();
   };
 
-  const columnsDef = useProductsColumns({ onDeleteClick, onEditClick });
+  const columnsDef = useCharacterColumns({ onDeleteClick, onEditClick });
 
   return (
     <>
@@ -58,15 +57,15 @@ const Products = () => {
       <Dialog
         open={open}
         closeModal={toggleModal}
-        title={`${itemSelected ? "Update product" : "Create product"}`}
+        title={`${itemSelected ? "Update character" : "Create character"}`}
         hideAcceptButton={true}
         hideCancelButton={true}
         maxWidth={2}
       >
-        <FormProduct item={itemSelected} toggleModal={toggleModal} />
+        <FormCharacter item={itemSelected} toggleModal={toggleModal} />
       </Dialog>
     </>
   );
 };
 
-export default Products;
+export default Character;

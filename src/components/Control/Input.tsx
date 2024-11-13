@@ -3,7 +3,7 @@ import { InputHTMLAttributes } from "react";
 type InputProps = {
   id: string;
   name: string;
-  type?: "text" | "number" | "password";
+  type?: "text" | "number" | "password" | "file";
   label?: string;
   value: string | number;
   onChange: (event: InputHTMLAttributes<HTMLInputElement>) => void;

@@ -1,19 +1,19 @@
 import { useState } from "react";
 import useBanner from "../../../hook/useBanner";
 import { Button } from "@/components/ui/button";
-import FormProduct from "@/components/Admin/Product/FormProduct";
 import Dialog from "@/components/Common/Dialog/Dialog";
-import useGetProductsQuery from "@/hook/Queries/useGetProductsQuery";
-import useProductsColumns from "./hooks/useProductsColumns";
 import TableClientSide from "@/components/Tables/TableClientSide";
+import useGetDesignQuery from "@/hook/Queries/useGetDesignQuery";
+import useDesignColumns from "./hooks/useDesignColumns";
+import FormDesign from "@/components/Admin/Design/FormDesign";
 
-const Products = () => {
+const DesignAdmin = () => {
   const [open, setOpen] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const banner = useBanner();
   const [itemSelected, setItemSelected] = useState<any | null>(null);
 
-  const { data, isLoading, isError, refetch } = useGetProductsQuery();
+  const { data, isLoading, isError, refetch } = useGetDesignQuery();
 
   const toggleModal = () => setOpen(!open);
 
@@ -22,10 +22,12 @@ const Products = () => {
     const { original } = row;
     setItemSelected({
       id: original._id,
+      sku: original.sku,
       name: original.name,
       imageUrl: original.imageUrl,
       imageId: original.imageId,
-      tallas: original.tallas,
+      characterId: original.characterId,
+      characterName: original.characterName,
     });
     toggleModal();
   };
@@ -44,7 +46,7 @@ const Products = () => {
     toggleModal();
   };
 
-  const columnsDef = useProductsColumns({ onDeleteClick, onEditClick });
+  const columnsDef = useDesignColumns({ onDeleteClick, onEditClick });
 
   return (
     <>
@@ -58,15 +60,15 @@ const Products = () => {
       <Dialog
         open={open}
         closeModal={toggleModal}
-        title={`${itemSelected ? "Update product" : "Create product"}`}
+        title={`${itemSelected ? "Update design" : "Create design"}`}
         hideAcceptButton={true}
         hideCancelButton={true}
         maxWidth={2}
       >
-        <FormProduct item={itemSelected} toggleModal={toggleModal} />
+        <FormDesign item={itemSelected} toggleModal={toggleModal} />
       </Dialog>
     </>
   );
 };
 
-export default Products;
+export default DesignAdmin;
