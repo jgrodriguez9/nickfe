@@ -19,6 +19,7 @@ import Products from "../pages/Admin/Products";
 import Character from "@/pages/Admin/Character/Character";
 import DesignAdmin from "@/pages/Admin/Design";
 import Typography from "@/pages/Admin/Typography";
+import TechniqueAdmin from "@/pages/Admin/Technique";
 
 const routes: RoutesType[] = ([
   {
@@ -89,6 +90,11 @@ const routesAdmin: RoutesType[] = ([
     path: 'typographies',
     isMain: false,
     Component: Typography,
+  },
+  {
+    path: 'techniques',
+    isMain: false,
+    Component: TechniqueAdmin,
   },
 ])
 
