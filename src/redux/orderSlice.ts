@@ -1,16 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Order } from '../types/order'
+import { CharacterOrder, DesignOrder, Order, ProductOrder, TechniqueOrder } from '../types/order'
 
 export const initialOrder: Order = {
   id: "",
   technique: {
-    title: "",
+    id: "",
+    imageUrl: "",
+    name: "",
     price: 0
   },
   product: {
-    title: "",
-    url: ""
+    id: "",
+    imageUrl: "",
+    name: "",
+    price: 0,
+    tallas: []
+  },
+  character: {
+    id: "",
+    imageUrl: "",
+    name: "",
+  },
+  design: {
+    id: "",
+    imageUrl: "",
+    name: "",
+    sku: ""
   },
   label: "",
   typographic: {
@@ -32,10 +48,6 @@ export const initialOrder: Order = {
     code: "",
     title: ""
   },
-  art: {
-    title: "",
-    url: ""
-  },
   patchAdd: {
     title: "",
     url: ""
@@ -51,29 +63,53 @@ export const initialOrder: Order = {
 }
 
 export type OrderState = {
-    order: Order | null
+    order: Order
 }
 
 // Define the initial state using that type
 const initialState: OrderState = {
-  order: null,
+  order: initialOrder,
 }
 
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
+    addTechnique: (state: OrderState, action: PayloadAction<TechniqueOrder>) => {
+      state.order = {
+        ...state.order, 
+        technique: action.payload
+      }
+    },
+    addProduct: (state: OrderState, action: PayloadAction<ProductOrder>) => {
+      state.order = {
+        ...state.order,  
+        product: action.payload
+      }
+    },
+    addCharacter: (state: OrderState, action: PayloadAction<CharacterOrder>) => {
+      state.order = {
+        ...state.order,  
+        character: action.payload
+      }
+    },
+    addDesign: (state: OrderState, action: PayloadAction<DesignOrder>) => {
+      state.order = {
+        ...state.order,  
+        design: action.payload
+      }
+    },
     addOrder: (state: OrderState, action: PayloadAction<Order>) => {
       state.order = {
-        ...initialOrder, 
+        ...state.order,  
         ...action.payload
       }
     },    
     cleanOrder: (state) => {
-      state.order = null;
+      state.order = initialOrder;
     },
   },
 })
 
-export const { addOrder, cleanOrder } = orderSlice.actions
+export const { addOrder, cleanOrder, addTechnique, addProduct, addCharacter, addDesign } = orderSlice.actions
 export const orderReducer = orderSlice.reducer;

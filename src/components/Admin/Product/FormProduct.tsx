@@ -1,6 +1,7 @@
 import { createProduct, updateProduct } from "@/api/product";
 import Input from "@/components/Control/Input";
 import InputFormik from "@/components/Control/InputFormik";
+import SelectMulti from "@/components/Control/SelectMulti";
 import UploadPreviewImage from "@/components/Control/UploadPreviewImage";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,8 +9,10 @@ import {
   SAVE_SUCCESS,
   UPDATE_SUCCESSFULLY,
 } from "@/constant/messages";
+import useGetTechniqueQuery from "@/hook/Queries/useGetTechniqueQuery";
 import useBanner from "@/hook/useBanner";
 import { Product } from "@/types/product";
+import { Technique } from "@/types/technique";
 import { convertBase64 } from "@/utils/convertBase64";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FieldArray, FormikProvider, useFormik } from "formik";
@@ -26,6 +29,7 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
   const [file, setFile] = useState<any>();
   const banner = useBanner();
   const queryClient = useQueryClient();
+  const { data: techniquesOptions } = useGetTechniqueQuery();
   const { mutate: createMutation, isPending: isCreating } = useMutation({
     mutationFn: createProduct,
     onSuccess: () => {
@@ -56,10 +60,13 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
       imageUrl: item?.imageUrl ?? "",
       imageId: item?.imageId ?? "",
       tallas: item?.tallas ?? [],
+      price: item?.price ?? 0,
+      techniques: item?.techniques ?? [],
     },
     validationSchema: Yup.object({
       name: Yup.string().required(FIELD_REQUIRED),
       imageUrl: Yup.string().required(FIELD_REQUIRED),
+      price: Yup.string().required(FIELD_REQUIRED),
     }),
     onSubmit: async (values) => {
       let imageBase64 = undefined;
@@ -104,13 +111,51 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
             {formik.errors?.imageUrl}
           </span>
         )}
-        <Input
-          label={"Nombre"}
-          id={"name"}
-          name={"name"}
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          error={formik.errors?.name}
+        <div className="flex flex-col lg:flex-row gap-2">
+          <Input
+            label={"Nombre"}
+            id={"name"}
+            name={"name"}
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            error={formik.errors?.name}
+          />
+          <Input
+            label={"Price"}
+            id={"price"}
+            name={"price"}
+            value={formik.values.price}
+            onChange={formik.handleChange}
+            error={formik.errors?.price}
+          />
+        </div>
+        <SelectMulti
+          id="techniques"
+          name="techniques"
+          label="Techniques"
+          value={formik.values.techniques.map((it) => ({
+            value: it.id,
+            label: it.name,
+          }))}
+          onChange={(value) => {
+            console.log(value);
+            if (value) {
+              const newValues = value?.map((it) => ({
+                id: it.value,
+                name: it.label,
+              }));
+              formik.setFieldValue("techniques", newValues);
+            } else {
+              formik.setFieldValue("techniques", []);
+            }
+          }}
+          options={(techniquesOptions?.items ?? []).map(
+            (it: Technique & { _id: string }) => ({
+              value: it._id,
+              label: it.name,
+            })
+          )}
+          error={formik.errors?.techniques?.length ? "Required field" : ""}
         />
 
         <FormikProvider value={formik}>

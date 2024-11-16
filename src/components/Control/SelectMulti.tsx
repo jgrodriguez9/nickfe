@@ -1,25 +1,26 @@
-import { InputHTMLAttributes } from "react";
+import { SELECT_OPTION } from "../../constant/messages";
+import Select, { MultiValue } from "react-select";
 
-type OptionProps = {
+type ValueProps = {
   value: string;
   label: string;
 };
 
-type SelectSingleProps = {
+type SelectMultiProps = {
   id: string;
   name: string;
   label?: string;
-  value: string | number;
-  onChange: (event: InputHTMLAttributes<HTMLInputElement>) => void;
+  value: ValueProps[] | null;
+  onChange: (event: MultiValue<ValueProps> | null) => void;
   error?: string;
   disabled?: boolean;
-  importantClass?: string;
   importantClassLabel?: string;
   importantClassContainer?: string;
-  options: OptionProps[];
+  options: ValueProps[] | [];
+  clearable?: boolean;
 };
 
-const SelectSingle = ({
+const SelectMulti = ({
   label = undefined,
   value,
   onChange,
@@ -27,11 +28,11 @@ const SelectSingle = ({
   id,
   name,
   disabled = false,
-  importantClass = "",
   importantClassLabel = "",
   importantClassContainer = "",
   options = [],
-}: SelectSingleProps) => {
+  clearable = false,
+}: SelectMultiProps) => {
   return (
     <div className={`mb-2 w-full ${importantClassContainer}`}>
       {Boolean(label) && (
@@ -43,20 +44,23 @@ const SelectSingle = ({
         </label>
       )}
       <>
-        <select
+        <Select
           id={id}
           name={name}
-          className={`w-full p-2 border border-[#E8E9EA] rounded-[5px] h-[42px] ${importantClass}`}
+          classNames={{
+            control: (state) =>
+              state.isFocused
+                ? "!h-[42px] !border !border-[#E8E9EA] !rounded-[5px] !ring-1 !ring-black"
+                : "!h-[42px] !border !border-[#E8E9EA] !rounded-[5px]",
+          }}
           value={value}
           onChange={onChange}
-          disabled={disabled}
-        >
-          <option>Seleccionar opción</option>
-          {options.map((it) => (
-            <option key={it.value}>{it.label}</option>
-          ))}
-        </select>
-
+          options={options}
+          placeholder={SELECT_OPTION}
+          isDisabled={disabled}
+          isClearable={clearable}
+          isMulti={true}
+        />
         {Boolean(error) && (
           <span className="text-red-500 text-[12px]">{error}</span>
         )}
@@ -65,4 +69,4 @@ const SelectSingle = ({
   );
 };
 
-export default SelectSingle;
+export default SelectMulti;

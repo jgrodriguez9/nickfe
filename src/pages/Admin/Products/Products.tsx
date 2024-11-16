@@ -26,6 +26,8 @@ const Products = () => {
       imageUrl: original.imageUrl,
       imageId: original.imageId,
       tallas: original.tallas,
+      price: original.price,
+      techniques: original.techniques,
     });
     toggleModal();
   };

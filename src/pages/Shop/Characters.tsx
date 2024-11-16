@@ -3,12 +3,28 @@ import useAppTranslation from "../../hook/useAppTranslation";
 import CardWithFooter from "../../components/Common/CardWithFooter";
 import { FaImage } from "react-icons/fa";
 import SchemaDefault2 from "../../components/Layouts/SchemaDefault2";
+import useGetCharacterQuery from "@/hook/Queries/useGetCharacterQuery";
+import { Character as CharacterType } from "@/types/character";
+import { useAppDispatch } from "@/hook/useRedux";
+import { addCharacter } from "@/redux/orderSlice";
 
 const Characters = () => {
   const { t } = useAppTranslation({ keyPrefix: "pages.character" });
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const handleNext = () => {
+  const { data: characters } = useGetCharacterQuery();
+  const handleNext = (id: string) => {
+    const itemSelected: CharacterType & { _id: string } = characters.items.find(
+      (it: CharacterType & { _id: string }) => it._id === id
+    );
+    dispatch(
+      addCharacter({
+        id: itemSelected._id,
+        name: itemSelected.name,
+        imageUrl: itemSelected.imageUrl,
+      })
+    );
     navigate("/step-4");
   };
 
@@ -18,11 +34,20 @@ const Characters = () => {
         {t("title")}
       </h1>
       <div className="flex flex-col md:flex-row gap-8">
-        <CardWithFooter
-          icon={<FaImage className="h-60 w-60 m-5 mx-10 text-gray-700" />}
-          action={handleNext}
-          showFooter={false}
-        />
+        {characters?.items.map((it: CharacterType & { _id: string }) => (
+          <CardWithFooter
+            key={it._id}
+            icon={
+              <img
+                src={it.imageUrl}
+                alt={it.name}
+                className="h-60 w-60 m-5 mx-10"
+              />
+            }
+            action={() => handleNext(it._id)}
+            showFooter={false}
+          />
+        ))}
       </div>
       <SchemaDefault2 />
     </div>

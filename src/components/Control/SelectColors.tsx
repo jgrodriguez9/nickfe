@@ -8,12 +8,17 @@ const colors = [
   { value: "#FFFFFF", label: "Blanco" },
 ];
 
+type ColorOption = {
+  value: string;
+  label: string;
+};
+
 type SelectColorsProps = {
   id: string;
   name: string;
   label?: string;
   value: string;
-  colorOptions?: any[];
+  colorOptions: ColorOption[];
   error?: string;
   importantClassLabel?: string;
   importantClassContainer?: string;

@@ -1,19 +1,31 @@
-export type Technique = {
-    title: string;
-    type?: string;
+import { ProductTalla } from "./product";
+
+export type TechniqueOrder = {
+    id: string;
+    name: string;
+    imageUrl: string;
     price: number
 }
 
-export type Product = {
-    title: string;
-    url: string;
-    type?: string
+export type ProductOrder = {
+    id: string;
+    name: string;
+    imageUrl: string;
+    price: number,
+    tallas: ProductTalla[]
 }
 
-export type Art = {
-    title: string;
-    url: string;
-    type?: string
+export type CharacterOrder = {
+    id: string;
+    name: string;
+    imageUrl: string;
+}
+
+export type DesignOrder = {
+    id: string;
+    name: string;
+    sku: string
+    imageUrl: string;
 }
 
 export type Typographic = {
@@ -51,15 +63,16 @@ export type Additional = {
 
 export type Order = {
     id: string
-    technique: Technique
-    product: Product
+    technique: TechniqueOrder
+    product: ProductOrder
+    character: CharacterOrder
+    design: DesignOrder
     label: string
     typographic: Typographic
     labelColor: LabelColor
     productStyle: ProductStyle
     productSize: ProductSize
     productColor: ProductColor
-    art: Art
     patchAdd: Additional
     motifAdd: Additional
     textAdd: Additional

@@ -1,15 +1,13 @@
 import SchemaDefault2 from "../../components/Layouts/SchemaDefault2";
-import hodySample from "../../../public/samples/hody.webp";
-import design from "../../../public/samples/design.webp";
 import FormPersonalization from "../../components/Personalization/FormPersonalization";
-import { useState } from "react";
 import { useFormik } from "formik";
 import Button from "../../components/Control/Button";
 import { Order } from "../../types/order";
 import CardImageCollage from "./Common/CardImageCollage";
+import { useAppSelector } from "@/hook/useRedux";
 
 const Personalize = () => {
-  const [designCenter, setDesignCenter] = useState(design);
+  const { order } = useAppSelector((state) => state.order);
   const initialValues: Order = {
     id: "",
     technique: {
@@ -57,7 +55,7 @@ const Personalize = () => {
       url: "",
     },
   };
-
+  console.log(order);
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
@@ -70,6 +68,8 @@ const Personalize = () => {
       <div className="flex flex-col md:flex-row justify-center w-full md:w-2/3 mx-auto lg:justify-between">
         <div>
           <CardImageCollage
+            bgImage={order.product.imageUrl}
+            bgDesign={order.design.imageUrl}
             productClass="w-[600px] h-[700px] relative"
             name={formik.values.label}
             artClass="w-[225px] mt-48"

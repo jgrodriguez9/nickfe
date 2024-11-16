@@ -21,8 +21,6 @@ const CartShopping = () => {
     dispatch(toggleCart(!openCart));
   };
 
-  console.log(openCart);
-
   return (
     <Dialog open={openCart} onClose={toggle} className="relative z-10">
       <DialogBackdrop
