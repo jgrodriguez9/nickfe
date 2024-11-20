@@ -51,9 +51,11 @@ const SelectSingle = ({
           onChange={onChange}
           disabled={disabled}
         >
-          <option>Seleccionar opción</option>
+          <option value={""}>Seleccionar opción</option>
           {options.map((it) => (
-            <option key={it.value}>{it.label}</option>
+            <option key={it.value} value={it.value}>
+              {it.label}
+            </option>
           ))}
         </select>
 

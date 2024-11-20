@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useAppTranslation from "../../hook/useAppTranslation";
 import CardWithFooter from "../../components/Common/CardWithFooter";
-import { FaImage } from "react-icons/fa";
 import SchemaDefault2 from "../../components/Layouts/SchemaDefault2";
 import useGetCharacterQuery from "@/hook/Queries/useGetCharacterQuery";
 import { Character as CharacterType } from "@/types/character";
@@ -25,7 +24,7 @@ const Characters = () => {
         imageUrl: itemSelected.imageUrl,
       })
     );
-    navigate("/step-4");
+    navigate(`/step-4/${itemSelected._id}`);
   };
 
   return (

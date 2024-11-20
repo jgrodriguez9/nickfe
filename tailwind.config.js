@@ -39,9 +39,11 @@ export default {
   theme: {
     fontFamily: {
       sans: ["Visa Dialect", "sans-serif", ...defaultTheme.fontFamily.sans],
-      "noto-sans": "Noto Sans",
     },
     extend: {
+      fontFamily: {
+        SpongeBobRegular: "SpongeBobRegular",
+      },
       colors: {
         site: {
           primary: primary,

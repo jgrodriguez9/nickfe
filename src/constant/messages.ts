@@ -1,4 +1,4 @@
-export const FIELD_REQUIRED = "Campo requerido";
+export const FIELD_REQUIRED = "Field required";
 export const ERROR_SERVER = "No podemos establecer conexión con el servidor.";
 export const DELETE_QUESTION = "¿Estás seguro?";
 export const DELETE_QUESTION_CONFIRMATION = "¡Esta acción no es reversible!";

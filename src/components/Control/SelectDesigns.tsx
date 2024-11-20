@@ -1,30 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-//test data
-import design from "../../../public/samples/design.webp";
 import { formatNumber } from "../../utils/jsFormatNumber";
-const designs = [{ value: "1", label: design, price: 5 }];
+
+type DesignOptions = {
+  id: string;
+  price: number | undefined;
+  sku?: string;
+  imageUrl: string;
+};
 
 type SelectDesignsProps = {
   id: string;
-  name: string;
   label?: string;
   value: string;
-  designOptions?: any[];
+  designOptions?: DesignOptions[];
   error?: string;
   importantClassLabel?: string;
   importantClassContainer?: string;
+  onClick: (value: any) => void;
 };
 
 const SelectDesigns = ({
   id,
-  name,
   label = undefined,
   value,
-  designOptions = designs,
+  designOptions = [],
   importantClassLabel = "",
   importantClassContainer = "",
   error = undefined,
+  onClick,
 }: SelectDesignsProps) => {
   return (
     <div className={`mb-2 w-full ${importantClassContainer}`}>
@@ -38,20 +41,25 @@ const SelectDesigns = ({
       )}
       <>
         <div className="flex flex-row gap-2 flex-wrap">
-          {designOptions.map((color) => (
+          {designOptions.map((it: DesignOptions) => (
             <div
-              key={color.value}
-              className={`flex flex-col border border-gray-200`}
+              key={it.id}
+              className={`flex flex-col border ${
+                value === it.id
+                  ? "border-site-primary border-4"
+                  : "border-gray-200"
+              }`}
+              onClick={() => onClick(it)}
             >
               <img
-                src={color.label}
-                alt="design"
+                src={it.imageUrl}
+                alt={it.sku}
                 className="h-24 w-24 object-contain"
               />
-              {color.price && (
+              {it.price && (
                 <div className="bg-site-primary">
                   <h3 className="text-white text-normal font-semibold p-1 text-end">
-                    +{formatNumber(color.price)}
+                    +{formatNumber(it.price)}
                   </h3>
                 </div>
               )}

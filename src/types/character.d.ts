@@ -1,3 +1,12 @@
+type TypographyOptionsValue = {
+    code: string
+    name: string
+}
+type TypographyOptions = {
+    characterId: string,
+    values: TypographyOptionsValue[]
+}
+
 type TypographySchema = {
     id?: string
     name: string;
@@ -23,4 +32,4 @@ type Character = {
     imageId: string
 }
 
-export { Character, DesignSchema, TypographySchema}
+export { Character, DesignSchema, TypographySchema, TypographyOptionsValue, TypographyOptions}

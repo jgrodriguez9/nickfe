@@ -5,6 +5,7 @@ type CardImageCollageProps = {
   labelClass: string;
   bgImage: string;
   bgDesign: string;
+  sx?: any;
 };
 
 const CardImageCollage = ({
@@ -14,6 +15,7 @@ const CardImageCollage = ({
   labelClass,
   bgImage,
   bgDesign,
+  sx = {},
 }: CardImageCollageProps) => {
   return (
     <div className={productClass}>
@@ -24,7 +26,9 @@ const CardImageCollage = ({
       <div className="absolute w-full h-full">
         <div className="flex flex-col gap-1 items-center justify-center">
           {bgDesign && <img src={bgDesign} className={artClass} />}
-          <h6 className={labelClass}>{name}</h6>
+          <h6 className={labelClass} style={sx}>
+            {name}
+          </h6>
         </div>
       </div>
     </div>

@@ -29,29 +29,29 @@ export type DesignOrder = {
 }
 
 export type Typographic = {
-    title: string;
-    url?: string;
-    type?: string
+    value: string;
+    label: string
+    color: string
 }
 
 export type LabelColor = {
-    code: string
-    title: string
+    value: string
+    label: string
 }
 
 export type ProductStyle = {
-    code: string
-    title: string
+    value: string
+    label: string
 }
 
 export type ProductSize = {
-    code: string
-    title: string
+    value: string
+    label: string
 }
 
 export type ProductColor = {
-    code: string
-    title: string
+    value: string
+    label: string
 }
 
 export type Additional = {
@@ -76,4 +76,9 @@ export type Order = {
     patchAdd: Additional
     motifAdd: Additional
     textAdd: Additional
+}
+
+export type KeyValue = {
+    key: string,
+    value: any
 }

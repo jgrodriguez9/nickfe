@@ -43,7 +43,7 @@ const routes: RoutesType[] = ([
     Component: Characters
   },
   {
-    path: '/step-4',
+    path: '/step-4/:characterId',
     isMain: false,
     Component: Design
   },

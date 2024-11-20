@@ -22,6 +22,7 @@ type SelectColorsProps = {
   error?: string;
   importantClassLabel?: string;
   importantClassContainer?: string;
+  onClick: (value: any) => void;
 };
 
 const SelectColors = ({
@@ -33,6 +34,7 @@ const SelectColors = ({
   importantClassLabel = "",
   importantClassContainer = "",
   error = undefined,
+  onClick,
 }: SelectColorsProps) => {
   return (
     <div className={`mb-2 w-full ${importantClassContainer}`}>
@@ -50,7 +52,12 @@ const SelectColors = ({
             <div
               key={color.value}
               style={{ backgroundColor: color.value }}
-              className={`h-10 w-10 rounded-full border border-gray-200`}
+              className={`h-10 w-10 rounded-full border  ${
+                value === color.value
+                  ? "border-site-primary border-4"
+                  : "border-gray-200"
+              }`}
+              onClick={() => onClick(color)}
             />
           ))}
         </div>

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { CharacterOrder, DesignOrder, Order, ProductOrder, TechniqueOrder } from '../types/order'
+import { CharacterOrder, DesignOrder, KeyValue, Order, ProductOrder, TechniqueOrder } from '../types/order'
 
 export const initialOrder: Order = {
   id: "",
@@ -30,23 +30,25 @@ export const initialOrder: Order = {
   },
   label: "",
   typographic: {
-    title: ""
+    value: "",
+    label: "",
+    color: ""
   },
   labelColor: {
-    code: "",
-    title: ""
+    value: "",
+    label: ""
   },
   productStyle: {
-    code: "",
-    title: ""
+    value: "",
+    label: ""
   },
   productSize: {
-    code: "",
-    title: ""
+    value: "",
+    label: ""
   },
   productColor: {
-    code: "",
-    title: ""
+    value: "",
+    label: ""
   },
   patchAdd: {
     title: "",
@@ -104,12 +106,18 @@ export const orderSlice = createSlice({
         ...state.order,  
         ...action.payload
       }
-    },    
+    },
+    setValueOrder: (state: OrderState, action: PayloadAction<KeyValue>) => {
+      state.order = {
+        ...state.order,  
+        [action.payload.key]: action.payload.value
+      }
+    } ,  
     cleanOrder: (state) => {
       state.order = initialOrder;
     },
   },
 })
 
-export const { addOrder, cleanOrder, addTechnique, addProduct, addCharacter, addDesign } = orderSlice.actions
+export const { addOrder, cleanOrder, addTechnique, addProduct, addCharacter, addDesign, setValueOrder } = orderSlice.actions
 export const orderReducer = orderSlice.reducer;
