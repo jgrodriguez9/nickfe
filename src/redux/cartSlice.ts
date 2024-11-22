@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Order } from '../types/order'
+import { AddQty, OrderCart } from '../types/order'
 
 export type CartState = {
-    cart: Order[]
+    cart: OrderCart[]
     openCart: boolean
 }
 
@@ -17,14 +17,14 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state: CartState, action: PayloadAction<Order>) => {
-      if(!state.cart.some((it:Order)=>it.id === action.payload.id)){
+    addToCart: (state: CartState, action: PayloadAction<OrderCart>) => {
+      if(!state.cart.some((it:OrderCart)=>it.code === action.payload.code)){
         state.cart.push({ ...action.payload });
       }      
     },
     removeItem: (state, action: PayloadAction<string>) => {
       const removeItem = state.cart.filter(
-        (item:Order) => item.id !== action.payload
+        (item:OrderCart) => item.code !== action.payload
       );
       state.cart = removeItem;
     },
@@ -39,9 +39,17 @@ export const cartSlice = createSlice({
     },
     closeCart: (state) => {
       state.openCart = false
+    },
+    addQty: (state, action: PayloadAction<AddQty>) => {
+      const copyCart = [...state.cart]
+      const index = copyCart.findIndex((item:OrderCart) => item.code === action.payload.code)      
+      if(index >= 0){
+        copyCart[index].qty = action.payload.qty
+      }
+      state.cart = copyCart      
     }
   },
 })
 
-export const { addToCart, removeItem, toggleCart } = cartSlice.actions
+export const { addToCart, removeItem, toggleCart, addQty, cleanCart } = cartSlice.actions
 export const cartReducer = cartSlice.reducer;

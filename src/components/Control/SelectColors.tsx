@@ -15,7 +15,6 @@ type ColorOption = {
 
 type SelectColorsProps = {
   id: string;
-  name: string;
   label?: string;
   value: string;
   colorOptions: ColorOption[];
@@ -27,7 +26,6 @@ type SelectColorsProps = {
 
 const SelectColors = ({
   id,
-  name,
   label = undefined,
   value,
   colorOptions = colors,

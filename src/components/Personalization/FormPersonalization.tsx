@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "../../hook/useRedux";
-import { addToCart } from "../../redux/cartSlice";
-import { initialOrder, setValueOrder } from "../../redux/orderSlice";
-import { Order } from "../../types/order";
+import { setValueOrder } from "../../redux/orderSlice";
 import Card from "../Common/Card";
 import Button from "../Control/Button";
 import Input from "../Control/Input";
@@ -11,7 +9,6 @@ import SelectColors from "../Control/SelectColors";
 import SelectSingle from "../Control/SelectSingle";
 import ButtonOrder from "./ButtonOrder";
 import TabPersonalize from "./TabPersonalize";
-import { nanoid } from "nanoid";
 import { Colors, ProductTalla } from "@/types/product";
 import {
   typographiesColors,
@@ -32,19 +29,6 @@ type FormPersonalizationProps = {
 const FormPersonalization = ({ formik }: FormPersonalizationProps) => {
   const { product } = useAppSelector((state) => state.order.order);
   const dispatch = useAppDispatch();
-
-  const handleAddItemToCart = () => {
-    // const codeOrder = nanoid(10);
-    // const newOrder: Order = {
-    //   ...initialOrder,
-    //   id: codeOrder,
-    // };
-    // dispatch(addToCart(newOrder));
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: "smooth",
-    // });
-  };
 
   const { tallasOpt, colorProductOpt } = useMemo(() => {
     if (!product) {
@@ -77,8 +61,6 @@ const FormPersonalization = ({ formik }: FormPersonalizationProps) => {
       })
     );
   };
-
-  console.log(formik.values);
 
   const handleChangeQty = (qty: number) => {
     formik.setFieldValue("qty", qty);

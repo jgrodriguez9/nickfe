@@ -78,6 +78,36 @@ export type Order = {
     textAdd: Additional
 }
 
+export type ProductCart = {
+    id: string;
+    name: string;
+    imageUrl: string;
+    price: number,
+    color: ProductColor
+}
+
+export type OrderCart = {
+    code: string
+    technique: TechniqueOrder
+    product: ProductCart
+    character: CharacterOrder   
+    design: DesignOrder    
+    label: string
+    typographic: Typographic
+    productStyle: ProductStyle
+    productSize: ProductSize
+    qty: number
+
+    // patchAdd: Additional
+    // motifAdd: Additional
+    // textAdd: Additional
+}
+
+export type AddQty = {
+    code: string,
+    qty: number
+}
+
 export type KeyValue = {
     key: string,
     value: any

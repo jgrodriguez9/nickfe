@@ -2,14 +2,17 @@ import SchemaDefault2 from "../../components/Layouts/SchemaDefault2";
 import FormPersonalization from "../../components/Personalization/FormPersonalization";
 import { useFormik } from "formik";
 import Button from "../../components/Control/Button";
-import { Order } from "../../types/order";
+import { Order, OrderCart } from "../../types/order";
 import CardImageCollage from "./Common/CardImageCollage";
-import { useAppSelector } from "@/hook/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hook/useRedux";
 import * as Yup from "yup";
 import { FIELD_REQUIRED } from "@/constant/messages";
+import { nanoid } from "nanoid";
+import { addToCart } from "@/redux/cartSlice";
 
 const Personalize = () => {
   const { order } = useAppSelector((state) => state.order);
+  const dispatch = useAppDispatch();
   const initialValues: Order & { qty: number } = {
     qty: 1,
     ...order,
@@ -33,10 +36,33 @@ const Personalize = () => {
       }),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      //order code
+      const codeOrder = nanoid(10);
+      const newOrder: OrderCart = {
+        code: codeOrder,
+        technique: values.technique,
+        product: {
+          id: values.product.id,
+          imageUrl: values.product.imageUrl,
+          name: values.product.name,
+          price: values.product.price,
+          color: values.productColor,
+        },
+        character: values.character,
+        design: values.design,
+        label: values.label,
+        typographic: values.typographic,
+        productStyle: values.productStyle,
+        productSize: values.productSize,
+        qty: values.qty,
+      };
+      dispatch(addToCart(newOrder));
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     },
   });
-  console.log(formik.errors);
   return (
     <div className="relative  mt-52 w-full gap-8">
       <div className="flex flex-col md:flex-row justify-center w-full md:w-2/3 mx-auto lg:justify-between">

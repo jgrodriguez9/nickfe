@@ -19,11 +19,29 @@ const Header = () => {
           />
         </Link>
 
-        <img
+        <div
+          className="absolute top-10 right-20 w-[75px] z-10 cursor-pointer"
+          onClick={
+            cart.length > 0 ? () => dispatch(toggleCart(true)) : () => {}
+          }
+        >
+          <img src="/icons/home-cart.avif" className="w-full h-full" />
+          {cart.length > 0 && (
+            <span
+              className="bg-site-primary h-6 w-6 flex justify-center items-center 
+            text-[10px] font-bold rounded-full absolute -top-1 right-1 text-white"
+            >
+              {cart.length}
+            </span>
+          )}
+        </div>
+        {/* <img
           src="/icons/home-cart.avif"
-          className="absolute top-10 right-20 w-[75px] z-10"
-        />
+          className="absolute top-10 right-20 w-[75px] z-10 "
+          onClick={cart.length > 0 ? () => dispatch(toggleCart(true)) : () => {}}
+        /> */}
         <SchemaDefault showPlastas={true} />
+        <CartShopping />
       </>
     );
   }
