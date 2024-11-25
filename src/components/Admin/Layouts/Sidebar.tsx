@@ -1,5 +1,10 @@
-import { FaAutoprefixer, FaPrint, FaUser } from "react-icons/fa";
-import { FaMasksTheater, FaPhotoFilm, FaShirt } from "react-icons/fa6";
+import { FaPrint, FaUser } from "react-icons/fa";
+import {
+  FaCartShopping,
+  FaMasksTheater,
+  FaPhotoFilm,
+  FaShirt,
+} from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -9,10 +14,10 @@ const Sidebar = () => {
 
       <nav className="flex flex-1 flex-col gap-2 p-4 overflow-y-auto border-y border-b-gray-100 max-h-[500px]">
         <Link
-          to={"/users"}
+          to={"/admin/orders"}
           className="flex flex-row gap-4 items-center hover:text-gray-900 text-gray-600 text-base font-[500]"
         >
-          <FaUser />
+          <FaCartShopping />
           Orders
         </Link>
 

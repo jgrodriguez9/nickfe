@@ -20,6 +20,7 @@ import Character from "@/pages/Admin/Character/Character";
 import DesignAdmin from "@/pages/Admin/Design";
 import Typography from "@/pages/Admin/Typography";
 import TechniqueAdmin from "@/pages/Admin/Technique";
+import OrderAdmin from "@/pages/Admin/Order";
 
 const routes: RoutesType[] = ([
   {
@@ -95,6 +96,11 @@ const routesAdmin: RoutesType[] = ([
     path: 'techniques',
     isMain: false,
     Component: TechniqueAdmin,
+  },
+  {
+    path: 'orders',
+    isMain: false,
+    Component: OrderAdmin,
   },
 ])
 

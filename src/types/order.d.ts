@@ -112,3 +112,30 @@ export type KeyValue = {
     key: string,
     value: any
 }
+
+export type OrdersSchema = {
+    _id: string    
+    technique: TechniqueOrder
+    product: ProductCart
+    character: CharacterOrder   
+    design: DesignOrder    
+    label: string
+    typographic: Typographic
+    productStyle: ProductStyle
+    productSize: ProductSize
+    qty: number
+}
+
+export type OrderSchema = {
+    _id: string
+    code: string
+    status: string
+    orders: OrdersSchema[]
+    createdAt: Date
+    updatedAt: Date
+}
+
+export type UpdateOrder = {
+    id: string
+    body: Record<string, string>
+}

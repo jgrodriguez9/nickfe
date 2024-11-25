@@ -28,3 +28,5 @@ export const SCHEDULED_APPOINTMENT = "Se ha agendado su cita correctamente";
 export const UPDATE_SUCCESSFULLY = "Se actualizó correctamente";
 export const DELETED_SUCCESSFULLY = "Se eliminó correctamente";
 export const ORDER_SUCCESS = "Orden enviada exitosamente"
+export const ORDER_APPROVED = 'Pago aplicado exitosamente'
+export const ORDER_CANCEL = 'Orden cancelada exitosamente'

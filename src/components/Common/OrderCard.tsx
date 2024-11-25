@@ -16,8 +16,6 @@ const OrderCard = ({ product }: Props) => {
   }, [product]);
 
   const handleChangeQty = (qty: number) => {
-    console.log(qty);
-    //formik.setFieldValue("qty", qty);
     const payload: AddQty = {
       code: product.code,
       qty: qty,

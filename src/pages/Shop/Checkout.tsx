@@ -20,8 +20,7 @@ const Checkout = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: createOrder,
-    onSuccess: (response) => {
-      console.log(response);
+    onSuccess: () => {
       banner.simpleSuccess(ORDER_SUCCESS);
       dispatch(cleanOrder());
       dispatch(cleanCart());
@@ -49,9 +48,8 @@ const Checkout = () => {
     const body = {
       code: "1",
       orders: cart,
-      status: "Pending",
+      status: "pending",
     };
-    console.log(body);
     mutate(body);
   };
 
