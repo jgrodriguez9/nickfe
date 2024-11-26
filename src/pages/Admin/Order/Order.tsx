@@ -8,7 +8,10 @@ import useGetOrdersPaginatedQuery from "@/hook/Queries/useGetOrdersPaginatedQuer
 import Dialog from "@/components/Common/Dialog/Dialog";
 import ViewOrder from "./components/ViewOrder";
 import ActionOrder from "./components/ActionOrder";
-import DatePicker from "@/components/Control/DatePicker";
+import DatePickerRange from "@/components/Control/DatePickerRange";
+import { Button } from "@/components/ui/button";
+import { DateRange } from "react-day-picker";
+import moment from "moment";
 
 type DialogProps = {
   order: OrderSchema | null;
@@ -17,15 +20,19 @@ type DialogProps = {
 };
 
 const OrderAdmin = () => {
-  const [date, setDate] = useState();
+  const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [dialog, setDialog] = useState<DialogProps>({
     action: "",
     open: false,
     order: null,
   });
+  const [query, setQuery] = useState({
+    startDate: "",
+    endDate: "",
+  });
   const { tableState, pageNumber } = useTableServerSide();
   const { data, isLoading, isError } = useGetOrdersPaginatedQuery({
-    queryPath: `?${parseObjectToQueryUrl({ page: pageNumber })}`,
+    queryPath: `?${parseObjectToQueryUrl({ page: pageNumber, ...query })}`,
   });
 
   const toggleModal = () =>
@@ -58,12 +65,32 @@ const OrderAdmin = () => {
 
   const columnsDef = useOrdersColumns({ onHandlePaymentStatus });
 
+  const onHandleSearch = () => {
+    console.log(date);
+    const objSearch = { ...query };
+    if (date?.from) {
+      objSearch["startDate"] = moment(date.from).format("YYYY-MM-DD");
+    }
+    if (date?.to) {
+      objSearch["endDate"] = moment(date.to).format("YYYY-MM-DD");
+    }
+    setQuery(objSearch);
+    console.log(objSearch);
+  };
+
   return (
     <>
-      <div className="flex flex-col lg:flex-row gap-2">
+      <div className="mb-2 flex flex-col lg:flex-row gap-2 justify-end">
         <div>
-          <DatePicker date={date} setDate={setDate} />
+          <DatePickerRange
+            date={date}
+            setDate={setDate}
+            placeholder="Select range"
+          />
         </div>
+        <Button type="button" onClick={onHandleSearch}>
+          Search
+        </Button>
       </div>
       <TableServerSide
         tableState={tableState}

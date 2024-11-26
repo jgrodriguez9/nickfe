@@ -10,6 +10,9 @@ type CellProps = {
 };
 const OrderActionsCell = ({ row, onHandlePaymentStatus }: CellProps) => {
   const id = row.original._id;
+  const { status } = row.original;
+
+  const disabled = status === "payed" || status === "cancelled";
 
   return (
     <div className="flex justify-end gap-1 items-center">
@@ -27,8 +30,11 @@ const OrderActionsCell = ({ row, onHandlePaymentStatus }: CellProps) => {
         id={`action-edit-${id}`}
         aria-label={`action-edit-${id}`}
         title="Editar"
-        className="px-2 py-1 border border-green-400 bg-green-500 rounded-sm text-white hover:bg-green-400 text-lg"
-        onClick={() => onHandlePaymentStatus(row, "payed")}
+        className="px-2 py-1 border border-green-400 bg-green-500 rounded-sm text-white hover:bg-green-400 text-lg disabled:bg-gray-300 disabled:border-gray-300"
+        onClick={
+          disabled ? () => {} : () => onHandlePaymentStatus(row, "payed")
+        }
+        disabled={disabled}
         type="button"
       >
         <MdOutlineCreditScore />
@@ -37,9 +43,12 @@ const OrderActionsCell = ({ row, onHandlePaymentStatus }: CellProps) => {
         id={`action-edit-${id}`}
         aria-label={`action-edit-${id}`}
         title="Editar"
-        className="px-2 py-1 border border-red-400 bg-red-500 rounded-sm text-white hover:bg-red-400 text-lg"
-        onClick={() => onHandlePaymentStatus(row, "cancelled")}
+        className="px-2 py-1 border border-red-400 bg-red-500 rounded-sm text-white hover:bg-red-400 text-lg disabled:bg-gray-300 disabled:border-gray-300"
+        onClick={
+          disabled ? () => {} : () => onHandlePaymentStatus(row, "cancelled")
+        }
         type="button"
+        disabled={disabled}
       >
         <MdClose />
       </button>
