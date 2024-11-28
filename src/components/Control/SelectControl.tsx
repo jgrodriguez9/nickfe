@@ -1,7 +1,7 @@
 import { SELECT_OPTION } from "../../constant/messages";
 import Select from "react-select";
 
-type ValueProps = {
+export type ValueProps = {
   value: string;
   label: string;
 };
@@ -18,6 +18,7 @@ type SelectSingleProps = {
   importantClassContainer?: string;
   options: ValueProps[] | [];
   clearable?: boolean;
+  placeholder?: string;
 };
 
 const SelectControl = ({
@@ -32,6 +33,7 @@ const SelectControl = ({
   importantClassContainer = "",
   options = [],
   clearable = false,
+  placeholder = SELECT_OPTION,
 }: SelectSingleProps) => {
   return (
     <div className={`mb-2 w-full ${importantClassContainer}`}>
@@ -56,7 +58,7 @@ const SelectControl = ({
           value={value}
           onChange={onChange}
           options={options}
-          placeholder={SELECT_OPTION}
+          placeholder={placeholder}
           isDisabled={disabled}
           isClearable={clearable}
         />

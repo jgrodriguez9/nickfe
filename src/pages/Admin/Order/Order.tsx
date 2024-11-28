@@ -12,6 +12,13 @@ import DatePickerRange from "@/components/Control/DatePickerRange";
 import { Button } from "@/components/ui/button";
 import { DateRange } from "react-day-picker";
 import moment from "moment";
+import SelectControl, { ValueProps } from "@/components/Control/SelectControl";
+
+const statusOpt = [
+  { value: "pending", label: "Pending" },
+  { value: "payed", label: "Payed" },
+  { value: "cancelled", label: "Cancelled" },
+];
 
 type DialogProps = {
   order: OrderSchema | null;
@@ -21,6 +28,7 @@ type DialogProps = {
 
 const OrderAdmin = () => {
   const [date, setDate] = useState<DateRange | undefined>(undefined);
+  const [status, setStatus] = useState<ValueProps | null>(null);
   const [dialog, setDialog] = useState<DialogProps>({
     action: "",
     open: false,
@@ -29,6 +37,7 @@ const OrderAdmin = () => {
   const [query, setQuery] = useState({
     startDate: "",
     endDate: "",
+    status: "",
   });
   const { tableState, pageNumber } = useTableServerSide();
   const { data, isLoading, isError } = useGetOrdersPaginatedQuery({
@@ -66,29 +75,43 @@ const OrderAdmin = () => {
   const columnsDef = useOrdersColumns({ onHandlePaymentStatus });
 
   const onHandleSearch = () => {
-    console.log(date);
     const objSearch = { ...query };
-    if (date?.from) {
-      objSearch["startDate"] = moment(date.from).format("YYYY-MM-DD");
-    }
-    if (date?.to) {
-      objSearch["endDate"] = moment(date.to).format("YYYY-MM-DD");
-    }
+    objSearch["startDate"] = date?.from
+      ? moment(date.from).format("YYYY-MM-DD")
+      : "";
+    objSearch["endDate"] = date?.to ? moment(date.to).format("YYYY-MM-DD") : "";
+    objSearch["status"] = status?.value ?? "";
     setQuery(objSearch);
-    console.log(objSearch);
   };
 
   return (
     <>
-      <div className="mb-2 flex flex-col lg:flex-row gap-2 justify-end">
+      <div className="mb-2 flex flex-col lg:flex-row gap-2 justify-end items-center">
         <div>
+          <SelectControl
+            id="status"
+            name="status"
+            value={status}
+            onChange={(value) => {
+              setStatus(value);
+            }}
+            options={statusOpt}
+            placeholder="Payment status"
+            clearable={true}
+          />
+        </div>
+        <div className="mb-2">
           <DatePickerRange
             date={date}
             setDate={setDate}
             placeholder="Select range"
           />
         </div>
-        <Button type="button" onClick={onHandleSearch}>
+        <Button
+          type="button"
+          onClick={onHandleSearch}
+          className="mb-2 h-[42px]"
+        >
           Search
         </Button>
       </div>
