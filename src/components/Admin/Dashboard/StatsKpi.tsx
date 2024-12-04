@@ -37,7 +37,7 @@ const chartData2 = [
 
 const StatsKpi = () => {
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 gap-2">
       <div className="col-span-1">
         <KpiCard
           title="Total revenue"

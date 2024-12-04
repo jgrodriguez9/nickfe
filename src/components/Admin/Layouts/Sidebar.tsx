@@ -5,12 +5,18 @@ import {
   FaPhotoFilm,
   FaShirt,
 } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className="fixed flex h-full w-64 flex-col bg-gray-100 ">
-      <div className="p-4 text-lg font-semibold text-black">Dashboard</div>
+      <div
+        className="p-4 text-lg font-semibold text-black cursor-pointer"
+        onClick={() => navigate("/admin")}
+      >
+        Dashboard
+      </div>
 
       <nav className="flex flex-1 flex-col gap-2 p-4 overflow-y-auto border-y border-b-gray-100 max-h-[500px]">
         <Link
