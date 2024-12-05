@@ -29,32 +29,32 @@ const StatsSells = ({ isLoading, totals }: Props) => {
         icon={
           <IoIosCheckmarkCircleOutline className="text-gray-500 text-[2rem]" />
         }
-        total={formatNumberSimple(totals.totals)}
+        total={formatNumberSimple(totals?.totals ?? 0)}
         isLoading={isLoading}
       />
       <CardSell
         title="Pending orders"
         icon={<IoWarningOutline className="text-orange-500 text-[2rem]" />}
-        total={formatNumberSimple(totals.pending)}
+        total={formatNumberSimple(totals?.pending ?? 0)}
         isLoading={isLoading}
       />
       <CardSell
         title="paid Orders"
         icon={<LiaCheckDoubleSolid className="text-green-500 text-[2rem]" />}
-        total={formatNumberSimple(totals.payed)}
+        total={formatNumberSimple(totals?.payed ?? 0)}
         isLoading={isLoading}
       />
       <CardSell
         title="cancelled Orders"
         icon={<PiXCircle className="text-red-500 text-[2rem]" />}
-        total={formatNumberSimple(totals.cancelled)}
+        total={formatNumberSimple(totals?.cancelled ?? 0)}
         isLoading={isLoading}
       />
       <div className="ml-auto">
         <CardSell
           title="Total Earnings"
           icon={<AiOutlineDollar className="text-green-500 text-[2rem]" />}
-          total={formatNumber(totals.earning)}
+          total={formatNumber(totals?.earning ?? 0)}
           isLoading={isLoading}
         />
       </div>

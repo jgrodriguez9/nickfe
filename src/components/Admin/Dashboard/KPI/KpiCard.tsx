@@ -1,4 +1,5 @@
 import Card from "@/components/Common/Card";
+import Spinner from "@/components/Loader/Spinner";
 import {
   ChartConfig,
   ChartContainer,
@@ -25,6 +26,7 @@ const KpiCard = ({
   subTitle,
   total,
 }: Props) => {
+  console.log(chartData);
   const chart = useMemo(() => {
     switch (chartType) {
       case "lineal":
@@ -38,18 +40,17 @@ const KpiCard = ({
             }}
           >
             <XAxis
-              dataKey="month"
+              dataKey="label"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
             <Line
-              dataKey="desktop"
+              dataKey="amount"
               type="natural"
               stroke="var(--color-desktop)"
               strokeWidth={1}
