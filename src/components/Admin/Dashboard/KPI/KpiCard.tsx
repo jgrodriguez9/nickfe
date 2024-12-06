@@ -16,6 +16,7 @@ type Props = {
   chartConfig: ChartConfig;
   subTitle: string;
   total: string;
+  percentage?: string;
 };
 
 const KpiCard = ({
@@ -25,8 +26,8 @@ const KpiCard = ({
   chartConfig,
   subTitle,
   total,
+  percentage,
 }: Props) => {
-  console.log(chartData);
   const chart = useMemo(() => {
     switch (chartType) {
       case "lineal":
@@ -72,8 +73,8 @@ const KpiCard = ({
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="amount"
+              nameKey="label"
               innerRadius={60}
               strokeWidth={5}
             >
@@ -92,14 +93,14 @@ const KpiCard = ({
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {"48%"}
+                          {percentage}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Amount
+                          Goal complete
                         </tspan>
                       </text>
                     );
