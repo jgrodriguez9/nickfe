@@ -1,6 +1,7 @@
 import { createProduct, updateProduct } from "@/api/product";
 import Input from "@/components/Control/Input";
 import InputFormik from "@/components/Control/InputFormik";
+import InputImage from "@/components/Control/InputImage";
 import SelectMulti from "@/components/Control/SelectMulti";
 import UploadPreviewImage from "@/components/Control/UploadPreviewImage";
 import { Button } from "@/components/ui/button";
@@ -201,7 +202,7 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
                       <div>
                         <FieldArray name={`tallas.${idx}.colors`}>
                           {({ remove: removeColors, push: pushColor }) => (
-                            <div>
+                            <div className="flex flex-col gap-2">
                               <Button
                                 type="button"
                                 variant={"outline"}
@@ -217,6 +218,7 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
                                   className="flex flex-col lg:flex-row gap-2 items-center"
                                   key={`color-${idx}`}
                                 >
+                                  <InputImage />
                                   <InputFormik
                                     label="Code HEX"
                                     name={`tallas.${idx}.colors.${idxColor}.codeHex`}

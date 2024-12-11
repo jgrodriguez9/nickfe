@@ -63,7 +63,7 @@ const Products = () => {
         title={`${itemSelected ? "Update product" : "Create product"}`}
         hideAcceptButton={true}
         hideCancelButton={true}
-        maxWidth={2}
+        maxWidth={8}
       >
         <FormProduct item={itemSelected} toggleModal={toggleModal} />
       </Dialog>

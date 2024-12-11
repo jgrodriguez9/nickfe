@@ -1,6 +1,8 @@
 type Colors = {
     codeHex: string;
     name: string
+    imageUrl?: string
+    imageId?: string
 }
 type ProductTechnique = {
     id: string;
