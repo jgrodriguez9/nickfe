@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "../../hook/useRedux";
-import { setValueOrder } from "../../redux/orderSlice";
+import { setProductColor } from "../../redux/orderSlice";
 import Card from "../Common/Card";
 import Button from "../Control/Button";
 import Input from "../Control/Input";
@@ -15,6 +15,7 @@ import {
   typographiesOpt,
 } from "@/constant/typographiesOpt";
 import { TypographyOptions, TypographyOptionsValue } from "@/types/character";
+import { ProductImage } from "@/types/order";
 
 const productStyles = [
   { value: "Women", label: "Women" },
@@ -46,18 +47,31 @@ const FormPersonalization = ({ formik }: FormPersonalizationProps) => {
           it.colors.map((cl: Colors) => ({
             value: cl.codeHex,
             label: cl.name,
+            imageUrl: cl.imageUrl,
           }))
         ),
       };
     }
   }, [product]);
 
-  const onHandleChangeSelect = (value: any, key: string) => {
-    formik.setFieldValue(key, value);
+  // const onHandleChangeSelect = (value: any, key: string) => {
+  //   formik.setFieldValue(key, value);
+  //   dispatch(
+  //     setValueOrder({
+  //       key: key,
+  //       value: value,
+  //     })
+  //   );
+  // };
+
+  const onHandleChangeSelectProductColor = (value: ProductImage) => {
+    console.log(value.value);
+    formik.setFieldValue(`productColor.value`, value.value);
+    formik.setFieldValue(`product.imageUrl`, value.imgUrl);
     dispatch(
-      setValueOrder({
-        key: key,
-        value: value,
+      setProductColor({
+        imgUrl: value.imgUrl,
+        value: value.value,
       })
     );
   };
@@ -134,9 +148,13 @@ const FormPersonalization = ({ formik }: FormPersonalizationProps) => {
           id="colorProduct"
           label="Color del producto"
           value={formik.values.productColor.value}
-          onClick={(value: string) =>
-            onHandleChangeSelect(value, "productColor")
-          }
+          onClick={(value: any) => {
+            const parseCl: ProductImage = {
+              imgUrl: value?.imageUrl ?? "",
+              value: value?.value ?? "",
+            };
+            onHandleChangeSelectProductColor(parseCl);
+          }}
           colorOptions={colorProductOpt}
           error={formik.errors?.productColor?.value}
         />

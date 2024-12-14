@@ -1,4 +1,3 @@
-import { FaTshirt } from "react-icons/fa";
 import CardWithFooter from "../../components/Common/CardWithFooter";
 import useAppTranslation from "../../hook/useAppTranslation";
 import SchemaDefault2 from "../../components/Layouts/SchemaDefault2";

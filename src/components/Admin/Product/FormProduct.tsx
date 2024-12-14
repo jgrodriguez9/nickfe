@@ -98,6 +98,10 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
     }
   }, [file]);
 
+  const onHandleChange = (name: string, value: string) => {
+    formik.setFieldValue(name, value);
+  };
+
   return (
     <form
       onSubmit={(e) => {
@@ -216,9 +220,12 @@ const FormProduct = ({ item, toggleModal = () => {} }: Props) => {
                               {_talla.colors.map((_color, idxColor: number) => (
                                 <div
                                   className="flex flex-col lg:flex-row gap-2 items-center"
-                                  key={`color-${idx}`}
+                                  key={`color-${idxColor}`}
                                 >
-                                  <InputImage />
+                                  <InputImage
+                                    name={`tallas.${idx}.colors.${idxColor}.imageBase64`}
+                                    onHandleChange={onHandleChange}
+                                  />
                                   <InputFormik
                                     label="Code HEX"
                                     name={`tallas.${idx}.colors.${idxColor}.codeHex`}

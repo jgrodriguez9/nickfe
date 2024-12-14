@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { IoImageOutline } from "react-icons/io5";
 
-const InputImage = () => {
+type Props = {
+  name: string;
+  onHandleChange: (name: string, value: string) => void;
+};
+
+const InputImage = ({ name, onHandleChange }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>("");
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,10 +15,9 @@ const InputImage = () => {
       const reader = new FileReader();
       reader.onload = () => {
         setImageSrc(reader.result); // Set the base64 URL of the uploaded image
+        onHandleChange(name, reader.result as string);
       };
       reader.readAsDataURL(file);
-      // setFileUpload(URL.createObjectURL(e.target.files[0]));
-      // setFile(e.target.files[0]);
     }
   };
 

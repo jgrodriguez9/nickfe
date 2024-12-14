@@ -25,7 +25,10 @@ const ViewOrder = ({ order }: Props) => {
       }`}
     >
       {order.orders.map((product: OrdersSchema) => (
-        <div className="flex flex-col lg:flex-row justify-center items-center gap-3 border-b-gray-300 border-b pb-4">
+        <div
+          key={product._id}
+          className="flex flex-col lg:flex-row justify-center items-center gap-3 border-b-gray-300 border-b pb-4"
+        >
           <div>
             <CardImageCollage
               productClass="w-[260px] h-[260px] relative"

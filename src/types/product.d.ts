@@ -3,6 +3,7 @@ type Colors = {
     name: string
     imageUrl?: string
     imageId?: string
+    imageBase64?: string
 }
 type ProductTechnique = {
     id: string;

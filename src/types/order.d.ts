@@ -113,6 +113,11 @@ export type KeyValue = {
     value: any
 }
 
+export type ProductImage = {
+    imgUrl: string,
+    value: string
+}
+
 export type OrdersSchema = {
     _id: string    
     technique: TechniqueOrder
